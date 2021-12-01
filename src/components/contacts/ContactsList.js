@@ -2,7 +2,7 @@ import ContactCard from "./ContactCard";
 
 const ContactList = ({ contacts = [] }) => {
   return (
-    <div className="col-6 bg-secondary bg-opacity-25 px-5 py-5">
+    <div className="col-6 bg-secondary bg-opacity-25 px-5 py-5 my-3">
       {contacts.map((contact) => (
         <ContactCard
           key={contact.id}
