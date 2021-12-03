@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AddContact } from "../App";
 
 const ContactCreateForm = () => {
   const [state, setState] = useState({
@@ -10,12 +11,15 @@ const ContactCreateForm = () => {
     profilePic: "",
   });
 
+  const handleCreateContact = useContext(AddContact);
+
   const handleInputChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    handleCreateContact(state);
   };
 
   return (
@@ -32,7 +36,7 @@ const ContactCreateForm = () => {
           <div className="row">
             <div className="col-12">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="text"
                 placeholder="First Name"
                 name="firstName"
@@ -42,7 +46,7 @@ const ContactCreateForm = () => {
             </div>
             <div className="col-12 mt-2">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="text"
                 placeholder="Last Name"
                 name="lastName"
@@ -52,7 +56,7 @@ const ContactCreateForm = () => {
             </div>
             <div className="col-12 mt-2">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="tel"
                 placeholder="Phone Number"
                 name="phoneNumber"
@@ -62,7 +66,7 @@ const ContactCreateForm = () => {
             </div>
             <div className="col-12 mt-2">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -72,7 +76,7 @@ const ContactCreateForm = () => {
             </div>
             <div className="col-12 mt-2">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="text"
                 placeholder="Address"
                 name="address"
@@ -82,7 +86,7 @@ const ContactCreateForm = () => {
             </div>
             <div className="col-12 mt-2">
               <input
-                className="form-control w-50"
+                className="form-control"
                 type="text"
                 placeholder="Profile Picture Url"
                 name="profilePic"

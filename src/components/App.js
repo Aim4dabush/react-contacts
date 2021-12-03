@@ -4,7 +4,7 @@ import RegisterPage from "./register";
 import ContactsPage from "./contacts";
 import ContactDetailsPage from "./contact-details";
 import ContactCreatePage from "./contact-create";
-import { getContacts } from "../utils/contacts";
+import { getContacts, createContact, deleteContact } from "../utils/contacts";
 
 const mockContacts = [
   {
@@ -45,6 +45,10 @@ const mockContacts = [
   },
 ];
 
+export const ContactsArr = React.createContext();
+export const AddContact = React.createContext();
+export const DeleteContact = React.createContext();
+
 const App = () => {
   const [contacts, setContacts] = useState([]);
 
@@ -55,11 +59,17 @@ const App = () => {
 
   return (
     <div>
-      <LoginPage />
-      <RegisterPage />
-      <ContactsPage contacts={contacts} />
-      <ContactDetailsPage contact={contacts[0]} />
-      <ContactCreatePage />
+      <ContactsArr.Provider value={contacts}>
+        <AddContact.Provider value={createContact}>
+          <DeleteContact.Provider value={deleteContact}>
+            <LoginPage />
+            <RegisterPage />
+            <ContactsPage contacts={contacts} />
+            <ContactDetailsPage contact={contacts[0]} />
+            <ContactCreatePage />
+          </DeleteContact.Provider>
+        </AddContact.Provider>
+      </ContactsArr.Provider>
     </div>
   );
 };

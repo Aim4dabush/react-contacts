@@ -45,7 +45,7 @@ const RegisterForm = () => {
           </div>
           <div className="col-12 d-flex justify-content-center my-3">
             <button type="submit" className="btn btn-secondary text-black">
-              Login
+              Register
             </button>
           </div>
           <div className="d-flex justify-content-center">

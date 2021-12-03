@@ -1,13 +1,19 @@
+import { useContext } from "react";
+import { DeleteContact } from "../App";
+
 const ContactCard = ({
   firstName = "",
   lastName = "",
   phoneNumber = "",
   profilePic = "",
+  id = "",
 }) => {
+  const deleteContactById = useContext(DeleteContact);
+
   return (
     <div className="card mb-3">
       <div className="row">
-        <div className="col-2">
+        <div className="col-2 d-flex justify-content-center">
           <img
             className="img-fluid rounded-circle"
             src={profilePic}
@@ -29,6 +35,7 @@ const ContactCard = ({
           <button
             type="button"
             className="btn-close bg-secondary rounded-circle"
+            onClick={() => deleteContactById(id)}
           />
         </div>
       </div>
