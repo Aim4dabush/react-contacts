@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
+import {
+  useHistory,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+
+//Components
 import LoginPage from "./login";
 import RegisterPage from "./register";
 import ContactsPage from "./contacts";
 import ContactDetailsPage from "./contact-details";
 import ContactCreatePage from "./contact-create";
+
+//Utilities
 import { getContacts, createContact, deleteContact } from "../utils/contacts";
+import { login } from "../utils/auth";
 
 const mockContacts = [
   {
@@ -45,12 +57,12 @@ const mockContacts = [
   },
 ];
 
-export const ContactsArr = React.createContext();
-export const AddContact = React.createContext();
-export const DeleteContact = React.createContext();
+export const Contacts = React.createContext({});
+export const AuthContext = React.createContext({});
 
 const App = () => {
   const [contacts, setContacts] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const storedContacts = getContacts();
@@ -59,17 +71,49 @@ const App = () => {
 
   return (
     <div>
-      <ContactsArr.Provider value={contacts}>
-        <AddContact.Provider value={createContact}>
-          <DeleteContact.Provider value={deleteContact}>
-            <LoginPage />
-            <RegisterPage />
-            <ContactsPage contacts={contacts} />
-            <ContactDetailsPage contact={contacts[0]} />
-            <ContactCreatePage />
-          </DeleteContact.Provider>
-        </AddContact.Provider>
-      </ContactsArr.Provider>
+      <Contacts.Provider
+        value={{
+          contactsList: contacts,
+          addContact: createContact,
+          deleteContact: deleteContact,
+        }}
+      >
+        <AuthContext.Provider value={{ user: setUser, login: login }}>
+          <Router>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+                <li>
+                  <Link to="/contacts">Contacts</Link>
+                </li>
+                <li>
+                  <Link to="/contacts/add">Create Contact</Link>
+                </li>
+              </ul>
+            </nav>
+            <Route path="/">
+              <ContactsPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
+            </Route>
+            <Route path="/contacts/:index">
+              <ContactDetailsPage />
+            </Route>
+            <Route path="/contacts/add">
+              <ContactCreatePage />
+            </Route>
+          </Router>
+        </AuthContext.Provider>
+      </Contacts.Provider>
     </div>
   );
 };

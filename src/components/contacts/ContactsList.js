@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import ContactCard from "./ContactCard";
-import { ContactsArr } from "../App";
+import { Contacts } from "../App";
 
 const ContactList = ({ contacts = [] }) => {
-  contacts = useContext(ContactsArr);
-
+  const { contactsList } = useContext(Contacts);
+  contacts = contactsList;
   return (
     <div className="col-5 bg-secondary bg-opacity-25 px-5 py-5 my-3">
       {contacts.map((contact) => (

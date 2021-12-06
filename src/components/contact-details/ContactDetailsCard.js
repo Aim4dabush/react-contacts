@@ -1,4 +1,13 @@
-const ContactDetailsCard = ({ contact }) => {
+import { useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Contacts } from "../App";
+
+const ContactDetailsCard = () => {
+  const { index } = useParams();
+  const { contactsList } = useContext(Contacts);
+  const contact = contactsList.find((contact) => {
+    return contact.id === Number(index);
+  });
   return (
     <div className="card">
       <div className="row">

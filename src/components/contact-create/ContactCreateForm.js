@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { AddContact } from "../App";
+import { Contacts } from "../App";
 
 const ContactCreateForm = () => {
   const [state, setState] = useState({
@@ -11,7 +11,7 @@ const ContactCreateForm = () => {
     profilePic: "",
   });
 
-  const handleCreateContact = useContext(AddContact);
+  const { addContact } = useContext(Contacts);
 
   const handleInputChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -19,7 +19,7 @@ const ContactCreateForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleCreateContact(state);
+    addContact(state);
   };
 
   return (

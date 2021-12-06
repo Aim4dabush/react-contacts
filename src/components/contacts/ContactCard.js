@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { DeleteContact } from "../App";
+import { Contacts } from "../App";
+import { Link, Redirect } from "react-router-dom";
 
 const ContactCard = ({
   firstName = "",
@@ -8,38 +9,40 @@ const ContactCard = ({
   profilePic = "",
   id = "",
 }) => {
-  const deleteContactById = useContext(DeleteContact);
+  const { deleteContact } = useContext(Contacts);
 
   return (
-    <div className="card mb-3">
-      <div className="row">
-        <div className="col-2 d-flex justify-content-center">
-          <img
-            className="img-fluid rounded-circle"
-            src={profilePic}
-            alt={`Profile of ${firstName} ${lastName}.`}
-          />
-        </div>
-        <div className="col-1 d-flex">
-          <div className="vr"></div>
-        </div>
-        <div className="col-3 d-flex justify-content-start align-items-center">
-          <div className="card-body">
-            <p className="card-text">
-              {firstName} {lastName}
-            </p>
-            <p className="card-text">{phoneNumber}</p>
+    <Link to={`contacts/${id}`}>
+      <div className="card mb-3">
+        <div className="row">
+          <div className="col-2 d-flex justify-content-center">
+            <img
+              className="img-fluid rounded-circle"
+              src={profilePic}
+              alt={`Profile of ${firstName} ${lastName}.`}
+            />
+          </div>
+          <div className="col-1 d-flex">
+            <div className="vr"></div>
+          </div>
+          <div className="col-3 d-flex justify-content-start align-items-center">
+            <div className="card-body">
+              <p className="card-text">
+                {firstName} {lastName}
+              </p>
+              <p className="card-text">{phoneNumber}</p>
+            </div>
+          </div>
+          <div className="col-6 d-flex justify-content-end align-items-center pe-5">
+            <button
+              type="button"
+              className="btn-close bg-secondary rounded-circle"
+              onClick={() => deleteContact(id)}
+            />
           </div>
         </div>
-        <div className="col-6 d-flex justify-content-end align-items-center pe-5">
-          <button
-            type="button"
-            className="btn-close bg-secondary rounded-circle"
-            onClick={() => deleteContactById(id)}
-          />
-        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

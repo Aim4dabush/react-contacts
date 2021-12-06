@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../App";
 
 const LoginForm = () => {
   const [state, setState] = useState({
     username: "",
     password: "",
   });
+  const { user, login } = useContext(AuthContext);
 
   const handleInputChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -12,7 +14,10 @@ const LoginForm = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    user(state.username);
   };
+
+  login(state.username, state.passowrd);
 
   return (
     <form onSubmit={handleFormSubmit}>
